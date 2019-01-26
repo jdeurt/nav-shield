@@ -23,7 +23,7 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "bundleIdentifier": "com.navshield",
       "publishBundlePath": "ios/nav-shield/Supporting/shell-app.bundle",
       "publishManifestPath": "ios/nav-shield/Supporting/shell-app-manifest.json"
@@ -38,6 +38,8 @@
       "iosExpoViewUrl": "https://s3.amazonaws.com/exp-exponent-view-code/ios-v2.10.2-sdk32.0.0-c59c23cd-1d49-49d2-a633-d03f9d554cf6.tar.gz",
       "androidExpoViewUrl": "https://s3.amazonaws.com/exp-exponent-view-code/android-v2.10.5-sdk32.0.0-6b87ee30-8cbe-4cc6-b5ba-b03b77e34f90.tar.gz"
     },
-    "scheme": "expb348844cc45b4c0591c2b4b2e9318cd6"
+    "scheme": "exp",
+    "description": "",
+    "githubUrl": "https://github.com/jdeurt/nav-shield"
   }
 }
