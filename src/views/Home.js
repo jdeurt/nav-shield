@@ -216,12 +216,23 @@ export default class HomeView extends React.Component {
                         strokeWidth={0}
                         fillColor='rgba(61,153,112,0.5)'
                     />
-                    {this.crimeData.map((data, i) => {
-                        if (Math.abs(this.state.mapLocation.latitude - data.latitude) > 0.5 || Math.abs(this.state.mapLocation.longitude - data.longitude) > 0.5) return;
-                        if (data.injured == 0 && data.killed == 0) return;
+                    {this.crimeData.map((data, index) => {
+                        let ourLocation = this.state.mapLocation;
+
+                        //ignore crime spots not in our vicinity
+                        if (Math.abs(ourLocation.latitude - data.latitude) > 0.5
+                            || Math.abs(ourLocation.longitude - data.longitude) > 0.5) {
+                            return;
+                        }
+
+                        //ignore crime spots with no severity
+                        if (data.injured == 0 && data.killed == 0) {
+                            return;
+                        }
+                        
                         let color = colorScale(data.weight);
                         return (
-                            <View key={i}>
+                            <View key={index}>
                                 <Marker
                                     coordinate={{
                                         latitude: parseFloat(data.latitude),
