@@ -17,6 +17,7 @@ This is accomplished by using a Google Maps overlaid with a heatmap of gun viole
 * [Google Maps API](https://developers.google.com/maps/documentation/) - The API used for mapping our data and directing the user from their location to a desired Point B.
 * [Auth0](https://auth0.com/) - Authenticator for our login page, used to retaining desired settings and direction history.
 * [Vim](https://www.vim.org/) - The text editor used.
+* [nav-shield-api](https://github.com/jdeurt/nav-shield-api) - Homemade API used to reference crime statistics. 
 
 ## Authors
 
