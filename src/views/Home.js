@@ -8,6 +8,7 @@ import geolib from 'geolib';
 import colorScale from '../../assets/styles/color-scale';
 
 const GOOGLE_MAPS_APIKEY = 'AIzaSyCowMv70Xw6rAuBGwTToIm7GHBXagouUXA';
+const RADIUS_SIZE = 500;
 
 export default class HomeView extends React.Component {
     constructor(props) {
@@ -100,7 +101,7 @@ export default class HomeView extends React.Component {
                     return geolib.getDistance(
                         this.state.location,
                         {latitude: data.latitude, longitude: data.longitude}
-                    ) < 500;
+                    ) < RADIUS_SIZE;
                 });
 
                 if (near && !this.state.inDanger) {
@@ -220,7 +221,7 @@ export default class HomeView extends React.Component {
                                         latitude: parseFloat(data.latitude),
                                         longitude: parseFloat(data.longitude)
                                     }}
-                                    radius={500}
+                                    radius={RADIUS_SIZE}
                                     strokeWidth={0}
                                     fillColor={`rgba(${color[0]}, ${color[1]}, ${color[2]}, 0.5)`}
                                 />
