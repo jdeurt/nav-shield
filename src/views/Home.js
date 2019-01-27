@@ -104,11 +104,11 @@ export default class HomeView extends React.Component {
 
         return (
             <View style={styles.container}>
-                <View style={[styles.containerCenter, {position: 'absolute', top: 50, left: 20, zIndex: 99, backgroundColor: 'white', padding: 10}]}>
+                <View style={[styles.containerCenter, {position: 'absolute', top: 50, left: 20, zIndex: 99, backgroundColor: 'white', padding: 10, borderRadius: 3}]}>
                     <Text>Long: {this.state.location.longitude}</Text>
                     <Text>Lat: {this.state.location.latitude}</Text>
                 </View>
-                <TouchableOpacity activeOpacity={0.7} style={[styles.button, {bottom: -150, right: -125}]}
+                <TouchableOpacity activeOpacity={0.7} style={[styles.button, {bottom: -120, right: -95}]}
                     onPress={() => {
                         this.setState({
                             mapLocation: {
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
         height: 250,
         borderRadius: 100,
         paddingLeft: 50,
-        paddingTop: 50,
+        paddingTop: 60,
         backgroundColor: 'white'
     }
 });
