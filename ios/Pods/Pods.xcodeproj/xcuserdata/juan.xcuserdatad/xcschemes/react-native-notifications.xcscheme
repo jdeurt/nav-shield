@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B6520301E78D2DCAEE375BB40FD7A57E"
-               BlueprintName = "yoga"
+               BlueprintIdentifier = "FE5962189BC28520DFEF3A9DCBB3D40B"
+               BlueprintName = "react-native-notifications"
                ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "libyoga.a">
+               BuildableName = "libreact-native-notifications.a">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

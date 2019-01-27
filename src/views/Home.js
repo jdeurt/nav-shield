@@ -1,11 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, PushNotificationIOS, AppState } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, AppState, TextInput } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker, Circle } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import Geolocation from 'react-native-geolocation-service';
 
 import geolib from 'geolib';
 import colorScale from '../../assets/styles/color-scale';
+
+const GOOGLE_MAPS_APIKEY = 'AIzaSyCowMv70Xw6rAuBGwTToIm7GHBXagouUXA';
 
 export default class HomeView extends React.Component {
     constructor(props) {
@@ -22,7 +24,9 @@ export default class HomeView extends React.Component {
             },
             isLoading: true,
             isFetching: true,
-            appState: AppState.currentState
+            appState: AppState.currentState,
+            inDanger: false,
+            destination: 'Longhorn Tavern Stakehouse'
         };
 
         this.watchID = undefined;
@@ -48,7 +52,7 @@ export default class HomeView extends React.Component {
     }
 
     componentDidMount() {
-        PushNotificationIOS.requestPermissions();
+        //PushNotificationIOS.requestPermissions();
         AppState.addEventListener('change', this.handleAppStateChange);
 
         fetch('https://sharky.cool/api/tamuhack/data').then(resp => {
@@ -99,14 +103,13 @@ export default class HomeView extends React.Component {
                     ) < 500;
                 });
 
-                if (near && this.state.appState.match(/inactive|background/)) {
-                    PushNotificationIOS.checkPermissions(permissions => {
-                        if (permissions.alert && permissions.badge && permissions.sound) {
-                            PushNotificationIOS.presentLocalNotification({
-                                alertBody: 'Now entering a known crime area.',
-                                alertAction: 'Ok'
-                            });
-                        }
+                if (near && !this.state.inDanger) {
+                    this.setState({
+                        inDanger: true
+                    })
+                } else if (!near && this.state.inDanger) {
+                    this.setState({
+                        inDanger: false
                     });
                 }
             });
@@ -140,10 +143,14 @@ export default class HomeView extends React.Component {
 
         return (
             <View style={styles.container}>
-                <View style={[styles.containerCenter, {position: 'absolute', top: 50, left: 20, zIndex: 99, backgroundColor: 'white', padding: 10, borderRadius: 3}]}>
-                    <Text>Long: {this.state.location.longitude}</Text>
-                    <Text>Lat: {this.state.location.latitude}</Text>
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={(destination) => this.setState({destination})}
+                        value={this.state.destination}
+                    />
                 </View>
+                <View style={[styles.container, {borderWidth: 10, borderColor: this.state.inDanger ? 'red': 'green'}]}>
                 <TouchableOpacity activeOpacity={0.7} style={[styles.button, {bottom: -120, right: -95}]}
                     onPress={() => {
                         this.setState({
@@ -171,6 +178,13 @@ export default class HomeView extends React.Component {
                         this.state.mapLocation = location;
                     }}
                 >
+                    <MapViewDirections
+                        origin={this.state.location}
+                        destination={this.state.destination}
+                        apikey={GOOGLE_MAPS_APIKEY}
+                        strokeWidth={5}
+                        strokeColor='#4E9BDC'
+                    />
                     <Marker
                         coordinate={{
                             latitude: this.state.location.latitude,
@@ -215,6 +229,7 @@ export default class HomeView extends React.Component {
                     })}
                 </MapView>
             </View>
+            </View>  
         );
     }
 }
@@ -242,5 +257,25 @@ const styles = StyleSheet.create({
         paddingLeft: 50,
         paddingTop: 60,
         backgroundColor: 'white'
+    },
+    inputContainer: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: 100,
+        backgroundColor: 'white',
+        zIndex: 99
+    },
+    input: {
+        paddingLeft: 10,
+        position: 'absolute',
+        height: 50,
+        left: 10,
+        right: 10,
+        bottom: 10,
+        borderColor: 'lightgray',
+        borderWidth: 2,
+        borderRadius: 5
     }
 });

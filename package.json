@@ -15,11 +15,13 @@
     "path": "^0.12.7",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react-native-device-info": "^0.25.1",
     "react-native-elements": "^0.19.1",
     "react-native-geolocation-service": "^2.0.0",
     "react-native-maps": "git+https://github.com/pjamrozowicz/react-native-maps.git",
     "react-native-maps-directions": "^1.6.0",
     "react-native-notifications": "^1.1.23",
+    "react-native-touch-through-view": "^1.0.1",
     "react-native-vector-icons": "^6.2.0"
   },
   "devDependencies": {

@@ -35,6 +35,8 @@ import com.wix.reactnativenotifications.RNNotificationsPackage;
 
 // Needed for `react-native link`
 // import com.facebook.react.ReactApplication;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
+import com.wix.reactnativenotifications.RNNotificationsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.agontuk.RNFusedLocation.RNFusedLocationPackage;
 import com.airbnb.android.react.maps.MapsPackage;
@@ -54,6 +56,8 @@ public class MainApplication extends ExpoApplication implements AppLoaderPackage
 
         // Needed for `react-native link`
         // new MainReactPackage(),
+            new RNDeviceInfo(),
+            new RNNotificationsPackage(),
             new VectorIconsPackage(),
             new RNFusedLocationPackage(),
             new MapsPackage(),
