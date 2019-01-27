@@ -201,7 +201,7 @@ export default class HomeView extends React.Component {
                             latitude: this.state.location.latitude,
                             longitude: this.state.location.longitude
                         }}
-                        radius={100}
+                        radius={250}
                         strokeWidth={0}
                         fillColor='rgba(61,153,112,0.5)'
                     />
