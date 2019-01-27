@@ -22,9 +22,9 @@ This is accomplished by using a Google Maps overlaid with a heatmap of gun viole
 ## Authors
 
 * **Juan De Urtubey** - *Initial work, main app function, React Native wizard* - [jdeurt](https://github.com/jdeurt)
-* **Will Zhao** - *Code optimization, heat map function, logic kind* - [VisionZ](https://github.com/VisionZ)
+* **Will Zhao** - *Code optimization, heat map function, main logic development, idea creator* - [VisionZ](https://github.com/VisionZ)
 * **Cameron Brill** - *Auth0 authentication, Login Page, Twilio notifier* - [gaiscioch](https://github.com/gaiscioch)
-* **William Deng** - *Debugger, Cheif Data Scientist, found the anomoly that is the "Eye of China"* - [wdeng112](https://github.com/wdeng112)
+* **William Deng** - *Debugger, Chief Data Scientist, created sample data, also found the anomoly that is the "Eye of China"* - [wdeng112](https://github.com/wdeng112)
 
 ## Acknowledgments
 
