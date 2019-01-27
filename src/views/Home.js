@@ -19,44 +19,48 @@ export default class HomeView extends React.Component {
         this.watchID = undefined;
     }
 
+    async getLocation() {
+        return new Promise((resolve, reject) => {
+            Geolocation.getCurrentPosition(
+                (position) => {
+                    console.log("Position found!", position);
+                    resolve(position);
+                },
+                (error) => {
+                    // See error code charts below.
+                    console.log(error.code, error.message);
+                    reject(error.message);
+                },
+                { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+            );
+        });
+    }
+
     componentDidMount() {
-        Geolocation.getCurrentPosition(
-            (position) => {
-                this.setState({
-                    isLoading: false,
-                    location: {
-                        latitude: position.coords.latitude,
-                        longitude: position.coords.longitude
-                    }
-                });
-                console.log("Position found!", position);
-            },
-            (error) => {
-                // See error code charts below.
-                console.log(error.code, error.message);
-            },
-            { enableHighAccuracy: true, timeout: 15000, maximumAge: 100 }
-        );
-        this.watchID = Geolocation.watchPosition(
-            (position) => {
+        this.getLocation().then(position => {
+            this.setState({
+                isLoading: false,
+                location: {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                }
+            });
+        });
+
+        this.watchID = setInterval(() => {
+            this.getLocation().then(position => {
                 this.setState({
                     location: {
                         latitude: position.coords.latitude,
                         longitude: position.coords.longitude
                     }
-                });
-                console.log("Position updated!", position);
-            },
-            (error) => {
-                // See error code charts below.
-                console.log(error.code, error.message);
-            },
-            { enableHighAccuracy: true, timeout: 15000, maximumAge: 100, distanceFilter: 0 }
-        );
+                })
+            });
+        }, 1000 * 5);
     }
 
     componentWillUnmount() {
-        navigator.geolocation.clearWatch(this.watchID);
+        clearInterval(this.watchID);
     }
 
     render() {
