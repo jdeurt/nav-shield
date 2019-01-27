@@ -22,13 +22,15 @@ export default class HomeView extends React.Component {
         };
 
         this.watchID = undefined;
+
+        this.crimeData = [];
     }
 
     async getLocation() {
         return new Promise((resolve, reject) => {
             Geolocation.getCurrentPosition(
                 (position) => {
-                    console.log("Position found!", position);
+                    console.log('Position found!', position);
                     resolve(position);
                 },
                 (error) => {
@@ -42,9 +44,17 @@ export default class HomeView extends React.Component {
     }
 
     componentDidMount() {
+        fetch('https://sharky.cool/api/tamuhack/mock').then(resp => {
+            resp.json();
+        }).then(json => {
+            this.crimeData = json;
+        }).catch(err => {
+            console.log(err);
+        });
+
         Geolocation.getCurrentPosition(
             (position) => {
-                console.log("Position found!", position);
+                console.log('Position found!', position);
                 this.setState({
                     isLoading: false,
                     mapLocation: {
@@ -81,17 +91,6 @@ export default class HomeView extends React.Component {
     componentWillUnmount() {
         clearInterval(this.watchID);
     }
-
-    /*
-    centerMap() {
-        this.refs.map.animateToRegion({
-            latitude: this.state.location.latitude,
-            longitude: this.state.location.longitude,
-            latitudeDelta: 0.015,
-            longitudeDelta: 0.0121
-        });
-    }
-    */
 
     render() {
         if (this.state.isLoading) {
@@ -135,14 +134,13 @@ export default class HomeView extends React.Component {
                         this.state.mapLocation = location;
                     }}
                 >
-
                     <Marker
                         coordinate={{
                             latitude: this.state.location.latitude,
                             longitude: this.state.location.longitude,
                         }}
                     />
-                    
+                    <MapView.Heatmap points={this.crimeData}/>
                 </MapView>
             </View>
         );
