@@ -179,7 +179,7 @@ export default class HomeView extends React.Component {
                         })
                     }}
                 >
-                    <Text>CENTER</Text>
+                <Text>CENTER</Text>
                 </TouchableOpacity>
                 <MapView
                     provider={PROVIDER_GOOGLE}
@@ -219,9 +219,12 @@ export default class HomeView extends React.Component {
                     {this.crimeData.map((data, index) => {
                         let ourLocation = this.state.mapLocation;
 
+                        let crimeLat = data.latitude;
+                        let crimeLong = data.longitude;
+
                         //ignore crime spots not in our vicinity
-                        if (Math.abs(ourLocation.latitude - data.latitude) > 0.5
-                            || Math.abs(ourLocation.longitude - data.longitude) > 0.5) {
+                        if (Math.abs(ourLocation.latitude - crimeLat) > 0.5
+                            || Math.abs(ourLocation.longitude - crimeLong) > 0.5) {
                             return;
                         }
 
@@ -230,22 +233,24 @@ export default class HomeView extends React.Component {
                             return;
                         }
                         
+                        //show relative severity of data points using heatmap color scale
                         let color = colorScale(data.weight);
+
                         return (
                             <View key={index}>
                                 <Marker
                                     coordinate={{
-                                        latitude: parseFloat(data.latitude),
-                                        longitude: parseFloat(data.longitude),
+                                        latitude: crimeLat,
+                                        longitude: crimeLong,
                                     }}
                                     pinColor='#FF851B'
-                                    title={`Lat: ${data.latitude}, Long: ${data.longitude}`}
+                                    title={`Lat: ${crimeLat}, Long: ${crimeLong}`}
                                     description={`Injured: ${data.injured}\nKilled: ${data.killed}`}
                                 />
                                 <Circle
                                     center={{
-                                        latitude: parseFloat(data.latitude),
-                                        longitude: parseFloat(data.longitude)
+                                        latitude: crimeLat,
+                                        longitude: crimeLong
                                     }}
                                     radius={RADIUS_SIZE}
                                     strokeWidth={0}
