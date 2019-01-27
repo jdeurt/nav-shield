@@ -9,7 +9,6 @@
   "dependencies": {
     "expo": "^32.0.0",
     "expokit": "^32.0.5",
-    "fs": "0.0.1-security",
     "haversine": "^1.1.1",
     "path": "^0.12.7",
     "react": "16.5.0",

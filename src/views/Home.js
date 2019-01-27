@@ -5,8 +5,6 @@ import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import Geolocation from 'react-native-geolocation-service';
 
-import parser from '../utils/csv-parser';
-
 export default class HomeView extends React.Component {
     constructor(props) {
         super(props);
@@ -82,10 +80,6 @@ export default class HomeView extends React.Component {
 
     componentWillUnmount() {
         clearInterval(this.watchID);
-    }
-
-    getCrimeData() {
-        this.data = parser();
     }
 
     /*
