@@ -97,7 +97,9 @@ export default class HomeView extends React.Component {
                         longitude: position.coords.longitude
                     }
                 });
-                let near = this.crimeData.find(data => {
+
+                //flag indicating if we are close to a crime spot
+                let nearDanger = this.crimeData.find(data => {
                     return geolib.getDistance(
                         this.state.location,
                         {latitude: data.latitude, longitude: data.longitude}
@@ -105,7 +107,7 @@ export default class HomeView extends React.Component {
                 });
 
                 //if near danger
-                if (near) {
+                if (nearDanger) {
                     //if the frame sides are not red already, set them from green to red
                     if (!this.state.inDanger) {
                         this.state.setState(
