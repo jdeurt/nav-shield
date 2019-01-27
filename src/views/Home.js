@@ -100,17 +100,21 @@ export default class HomeView extends React.Component {
 
                 //flag indicating if we are close to a crime spot
                 let nearDanger = this.crimeData.find(data => {
+                    // Filter out crimes with no injuries or casualities.
+                    if (data.killed == 0 && data.injured == 0) return false;
                     return geolib.getDistance(
                         this.state.location,
                         {latitude: data.latitude, longitude: data.longitude}
                     ) < RADIUS_SIZE;
                 });
 
+                console.log(nearDanger);
+
                 if (nearDanger && !this.state.inDanger) {
                     this.setState({
                         inDanger: true
                     });
-                } else if (!nearDanger && this.state.inDanger) {
+                } else if (this.state.inDanger) {
                     this.setState({
                         inDanger: false
                     });
