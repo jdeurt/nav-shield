@@ -222,6 +222,9 @@ export default class HomeView extends React.Component {
                         let crimeLat = data.latitude;
                         let crimeLong = data.longitude;
 
+                        let parsedLat = parseFloat(crimeLat);
+                        let parsedLong = parseFloat(crimeLong);
+
                         //ignore crime spots not in our vicinity
                         if (Math.abs(ourLocation.latitude - crimeLat) > 0.5
                             || Math.abs(ourLocation.longitude - crimeLong) > 0.5) {
@@ -240,8 +243,8 @@ export default class HomeView extends React.Component {
                             <View key={index}>
                                 <Marker
                                     coordinate={{
-                                        latitude: crimeLat,
-                                        longitude: crimeLong,
+                                        latitude: parsedLat,
+                                        longitude: parsedLong,
                                     }}
                                     pinColor='#FF851B'
                                     title={`Lat: ${crimeLat}, Long: ${crimeLong}`}
@@ -249,8 +252,8 @@ export default class HomeView extends React.Component {
                                 />
                                 <Circle
                                     center={{
-                                        latitude: crimeLat,
-                                        longitude: crimeLong
+                                        latitude: parsedLat,
+                                        longitude: parsedLong
                                     }}
                                     radius={RADIUS_SIZE}
                                     strokeWidth={0}
