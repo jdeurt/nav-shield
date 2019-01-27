@@ -108,8 +108,6 @@ export default class HomeView extends React.Component {
                     ) < RADIUS_SIZE;
                 });
 
-                console.log(nearDanger);
-
                 if (nearDanger && !this.state.inDanger) {
                     this.setState({
                         inDanger: true
