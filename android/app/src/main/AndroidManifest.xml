@@ -80,7 +80,11 @@
 
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-      </intent-filter>
+	<data
+		Android:host="nav-shield.auth0.com"
+		Android:pathPrefix="/android/${applicationID}/callback"
+		Android:scheme="${applicationId}" />
+	</intent-filter>
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 

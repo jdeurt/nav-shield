@@ -7,8 +7,8 @@ import Geolocation from 'react-native-geolocation-service';
 import geolib from 'geolib';
 import colorScale from '../../assets/styles/color-scale';
 
-//Key to access Google Maps APIs
 const GOOGLE_MAPS_APIKEY = 'AIzaSyCowMv70Xw6rAuBGwTToIm7GHBXagouUXA';
+const RADIUS_SIZE = 500;
 
 export default class HomeView extends React.Component {
     constructor(props) {
@@ -97,13 +97,16 @@ export default class HomeView extends React.Component {
                         longitude: position.coords.longitude
                     }
                 });
-                let near = this.crimeData.find(data => {
+
+                //flag indicating if we are close to a crime spot
+                let nearDanger = this.crimeData.find(data => {
                     return geolib.getDistance(
                         this.state.location,
                         {latitude: data.latitude, longitude: data.longitude}
-                    ) < 500;
+                    ) < RADIUS_SIZE;
                 });
 
+<<<<<<< HEAD
                 if (near && !this.state.inDanger) {
                     this.setState({
                         inDanger: true
@@ -112,6 +115,29 @@ export default class HomeView extends React.Component {
                     this.setState({
                         inDanger: false
                     });
+=======
+                //if near danger
+                if (nearDanger) {
+                    //if the frame sides are not red already, set them from green to red
+                    if (!this.state.inDanger) {
+                        this.state.setState(
+                            {
+                                inDanger: true
+                            }
+                        );
+                    }
+                }
+                //not near danger
+                else {
+                    //if the frame sides are red, set them back to green
+                    if (this.state.inDanger) {
+                        this.state.setState(
+                            {
+                                inDanger: false
+                            }
+                        );
+                    }
+>>>>>>> e0a84e78fe92ef4a1dab750e74d8ad0b2d3a75a8
                 }
             });
         }, 1000 * 5);
@@ -164,7 +190,7 @@ export default class HomeView extends React.Component {
                         })
                     }}
                 >
-                    <Text>CENTER</Text>
+                <Text>CENTER</Text>
                 </TouchableOpacity>
                 <MapView
                     provider={PROVIDER_GOOGLE}
@@ -201,27 +227,46 @@ export default class HomeView extends React.Component {
                         strokeWidth={0}
                         fillColor='rgba(61,153,112,0.5)'
                     />
-                    {this.crimeData.map((data, i) => {
-                        if (Math.abs(this.state.mapLocation.latitude - data.latitude) > 0.5 || Math.abs(this.state.mapLocation.longitude - data.longitude) > 0.5) return;
-                        if (data.injured == 0 && data.killed == 0) return;
+                    {this.crimeData.map((data, index) => {
+                        let ourLocation = this.state.mapLocation;
+
+                        let crimeLat = data.latitude;
+                        let crimeLong = data.longitude;
+
+                        let parsedLat = parseFloat(crimeLat);
+                        let parsedLong = parseFloat(crimeLong);
+
+                        //ignore crime spots not in our vicinity
+                        if (Math.abs(ourLocation.latitude - crimeLat) > 0.5
+                            || Math.abs(ourLocation.longitude - crimeLong) > 0.5) {
+                            return;
+                        }
+
+                        //ignore crime spots with no severity
+                        if (data.injured == 0 && data.killed == 0) {
+                            return;
+                        }
+                        
+                        //show relative severity of data points using heatmap color scale
                         let color = colorScale(data.weight);
+
                         return (
-                            <View key={i}>
+                            <View key={index}>
                                 <Marker
                                     coordinate={{
-                                        latitude: parseFloat(data.latitude),
-                                        longitude: parseFloat(data.longitude),
+                                        latitude: parsedLat,
+                                        longitude: parsedLong,
                                     }}
                                     pinColor='#FF851B'
-                                    title={`Lat: ${data.latitude}, Long: ${data.longitude}`}
+                                    title={`Lat: ${crimeLat}, Long: ${crimeLong}`}
                                     description={`Injured: ${data.injured}\nKilled: ${data.killed}`}
                                 />
                                 <Circle
                                     center={{
-                                        latitude: parseFloat(data.latitude),
-                                        longitude: parseFloat(data.longitude)
+                                        latitude: parsedLat,
+                                        longitude: parsedLong
                                     }}
-                                    radius={500}
+                                    radius={RADIUS_SIZE}
                                     strokeWidth={0}
                                     fillColor={`rgba(${color[0]}, ${color[1]}, ${color[2]}, 0.5)`}
                                 />
