@@ -7,6 +7,7 @@ import Geolocation from 'react-native-geolocation-service';
 import geolib from 'geolib';
 import colorScale from '../../assets/styles/color-scale';
 
+//Key to access Google Maps APIs
 const GOOGLE_MAPS_APIKEY = 'AIzaSyCowMv70Xw6rAuBGwTToIm7GHBXagouUXA';
 
 export default class HomeView extends React.Component {
@@ -106,7 +107,7 @@ export default class HomeView extends React.Component {
                 if (near && !this.state.inDanger) {
                     this.setState({
                         inDanger: true
-                    })
+                    });
                 } else if (!near && this.state.inDanger) {
                     this.setState({
                         inDanger: false
