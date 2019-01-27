@@ -116,6 +116,10 @@ target 'nav-shield' do
 
   pod 'react-native-maps', :path => '../node_modules/react-native-maps'
 
+  pod 'GoogleMaps'
+  pod 'react-native-google-maps', :path => '../node_modules/react-native-maps'
+  pod 'Google-Maps-iOS-Utils', :git => 'https://github.com/pjamrozowicz/google-maps-ios-utils.git'
+
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   post_install do |installer|

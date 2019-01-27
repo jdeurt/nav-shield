@@ -58,6 +58,7 @@ allprojects {
     }
     flatDir {
       dirs 'libs'
+      dirs "$rootDir/../node_modules/react-native-maps/libs"
       // dirs project(':expoview').file('libs')
     }
     // https://github.com/google/ExoPlayer/issues/5225#issuecomment-445739013

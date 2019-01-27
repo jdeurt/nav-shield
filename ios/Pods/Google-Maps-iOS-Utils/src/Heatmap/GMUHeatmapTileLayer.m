@@ -72,8 +72,14 @@ static void FreeDataProviderData(void *info, const void *data, size_t size) { fr
 }
 
 - (void)setGradient:(GMUGradient *)gradient {
-  _gradient = gradient;
-  _dirty = YES;
+    UIColor *newObject = [[[gradient colors] firstObject]  colorWithAlphaComponent:0];
+    NSMutableArray *colors = [[NSMutableArray alloc] initWithArray:gradient.colors];
+    [colors removeObjectAtIndex:0];
+    [colors insertObject:newObject atIndex:0];
+    _gradient = [[GMUGradient alloc] initWithColors:colors
+                                        startPoints:gradient.startPoints
+                                       colorMapSize:gradient.mapSize];
+    _dirty = YES;
 }
 
 - (void)setWeightedData:(NSArray<GMUWeightedLatLng *> *)weightedData {

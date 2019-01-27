@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1ACE3BA7E34D64E0B3291847B59BD70D"
+               BlueprintIdentifier = "3DC3CC294B6FD3EB4B76313AA6D9DF05"
                BlueprintName = "Pods-nav-shield"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "libPods-nav-shield.a">

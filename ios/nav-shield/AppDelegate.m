@@ -9,7 +9,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [GMSServices provideAPIKey:@"_YOUR_API_KEY_"]; // add this line using the api key obtained from Google Console
+  [GMSServices provideAPIKey:@"AIzaSyCowMv70Xw6rAuBGwTToIm7GHBXagouUXA"]; // add this line using the api key obtained from Google Console
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 

@@ -74,7 +74,7 @@
     float curValue = [_startPoints[curStartPoint] floatValue];
     float prevValue = curStartPoint == 0 ? 0 : [_startPoints[curStartPoint - 1] floatValue];
     UIColor *curColor = _colors[curStartPoint];
-    UIColor *prevColor = curStartPoint == 0 ? [UIColor clearColor] : _colors[curStartPoint - 1];
+    UIColor *prevColor = curStartPoint == 0 ? _colors[curStartPoint] : _colors[curStartPoint - 1];
     colorMap[i] = [self interpolateColorFrom:prevColor
                                           to:curColor
                                        ratio:(targetValue - prevValue) / (curValue - prevValue)];
