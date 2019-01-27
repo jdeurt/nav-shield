@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
-import GeolocationGMaps from 'react-native-geolocation-service';
+import Geolocation from 'react-native-geolocation-service';
 
 export default class HomeView extends React.Component {
     constructor(props) {
@@ -20,7 +20,7 @@ export default class HomeView extends React.Component {
     }
 
     componentDidMount() {
-        navigator.geolocation.getCurrentPosition(
+        Geolocation.getCurrentPosition(
             (position) => {
                 this.setState({
                     isLoading: false,
@@ -35,9 +35,9 @@ export default class HomeView extends React.Component {
                 // See error code charts below.
                 console.log(error.code, error.message);
             },
-            { enableHighAccuracy: true, timeout: 15000, maximumAge: 1000 }
+            { enableHighAccuracy: true, timeout: 15000, maximumAge: 100 }
         );
-        this.watchID = navigator.geolocation.watchPosition(
+        this.watchID = Geolocation.watchPosition(
             (position) => {
                 this.setState({
                     location: {
@@ -51,7 +51,7 @@ export default class HomeView extends React.Component {
                 // See error code charts below.
                 console.log(error.code, error.message);
             },
-            { enableHighAccuracy: true, timeout: 15000, maximumAge: 1000, distanceFilter: 1 }
+            { enableHighAccuracy: true, timeout: 15000, maximumAge: 100, distanceFilter: 0 }
         );
     }
 
