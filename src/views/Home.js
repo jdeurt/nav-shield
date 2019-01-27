@@ -104,14 +104,27 @@ export default class HomeView extends React.Component {
                     ) < RADIUS_SIZE;
                 });
 
-                if (near && !this.state.inDanger) {
-                    this.setState({
-                        inDanger: true
-                    })
-                } else if (!near && this.state.inDanger) {
-                    this.setState({
-                        inDanger: false
-                    });
+                //if near danger
+                if (near) {
+                    //if the frame sides are not red already, set them from green to red
+                    if (!this.state.inDanger) {
+                        this.state.setState(
+                            {
+                                inDanger: true
+                            }
+                        );
+                    }
+                }
+                //not near danger
+                else {
+                    //if the frame sides are red, set them back to green
+                    if (this.state.inDanger) {
+                        this.state.setState(
+                            {
+                                inDanger: false
+                            }
+                        );
+                    }
                 }
             });
         }, 1000 * 5);
