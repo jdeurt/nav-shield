@@ -28,5 +28,5 @@ This is accomplished by using a Google Maps overlaid with a heatmap of gun viole
 ## Acknowledgments
 
 * The Internet is your friend :)
-* Sleep < Code
+* Code > Sleep
 * Congrats to the rest of the TAMU Hack 2019 contestants for their valiant efforts!
