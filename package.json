@@ -9,10 +9,12 @@
   "dependencies": {
     "expo": "^32.0.0",
     "expokit": "^32.0.5",
+    "haversine": "^1.1.1",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-geolocation-service": "^2.0.0",
-    "react-native-maps": "^0.23.0"
+    "react-native-maps": "^0.23.0",
+    "react-native-maps-directions": "^1.6.0"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"
