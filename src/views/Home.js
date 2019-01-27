@@ -1,9 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { Button } from 'react-native-elements';
-import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import { StyleSheet, Text, View, TouchableOpacity, PushNotificationIOS, AppState } from 'react-native';
+import MapView, { PROVIDER_GOOGLE, Marker, Circle } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import Geolocation from 'react-native-geolocation-service';
+
+import geolib from 'geolib';
+import colorScale from '../../assets/styles/color-scale';
 
 export default class HomeView extends React.Component {
     constructor(props) {
@@ -18,7 +20,9 @@ export default class HomeView extends React.Component {
                 latitude: 0,
                 longitude: 0
             },
-            isLoading: true
+            isLoading: true,
+            isFetching: true,
+            appState: AppState.currentState
         };
 
         this.watchID = undefined;
@@ -44,10 +48,14 @@ export default class HomeView extends React.Component {
     }
 
     componentDidMount() {
-        fetch('https://sharky.cool/api/tamuhack/mock').then(resp => {
-            resp.json();
-        }).then(json => {
-            this.crimeData = json;
+        PushNotificationIOS.requestPermissions();
+        AppState.addEventListener('change', this.handleAppStateChange);
+
+        fetch('https://sharky.cool/api/tamuhack/data').then(resp => {
+            resp.json().then(json => this.crimeData = json);
+            this.setState({
+                isFetching: false
+            });
         }).catch(err => {
             console.log(err);
         });
@@ -83,20 +91,49 @@ export default class HomeView extends React.Component {
                         latitude: position.coords.latitude,
                         longitude: position.coords.longitude
                     }
-                })
+                });
+                let near = this.crimeData.find(data => {
+                    return geolib.getDistance(
+                        this.state.location,
+                        {latitude: data.latitude, longitude: data.longitude}
+                    ) < 500;
+                });
+
+                if (near && this.state.appState.match(/inactive|background/)) {
+                    PushNotificationIOS.checkPermissions(permissions => {
+                        if (permissions.alert && permissions.badge && permissions.sound) {
+                            PushNotificationIOS.presentLocalNotification({
+                                alertBody: 'Now entering a known crime area.',
+                                alertAction: 'Ok'
+                            });
+                        }
+                    });
+                }
             });
         }, 1000 * 5);
     }
 
     componentWillUnmount() {
+        AppState.removeEventListener('change', this.handleAppStateChange);
         clearInterval(this.watchID);
     }
 
+    handleAppStateChange = (nextAppState) => {
+        if (
+            this.state.appState.match(/inactive|background/) &&
+            nextAppState === 'active'
+        ) {
+            console.log('App has come to the foreground!');
+        }
+        console.log(nextAppState);
+        this.setState({appState: nextAppState});
+    };
+
     render() {
-        if (this.state.isLoading) {
+        if (this.state.isLoading || this.state.isFetching) {
             return (
                 <View style={styles.containerCenter}>
-                    <Text>Loading...</Text>
+                    <Text>Breaking everything, please wait...</Text>
                 </View>
             );
         }
@@ -130,7 +167,7 @@ export default class HomeView extends React.Component {
                         latitudeDelta: this.state.mapLocation.latitudeDelta,
                         longitudeDelta: this.state.mapLocation.longitudeDelta
                     }}
-                    onRegionChangeComplete={location => {
+                    onRegionChange={location => {
                         this.state.mapLocation = location;
                     }}
                 >
@@ -140,7 +177,42 @@ export default class HomeView extends React.Component {
                             longitude: this.state.location.longitude,
                         }}
                     />
-                    <MapView.Heatmap points={this.crimeData}/>
+                    <Circle
+                        center={{
+                            latitude: this.state.location.latitude,
+                            longitude: this.state.location.longitude
+                        }}
+                        radius={100}
+                        strokeWidth={0}
+                        fillColor='rgba(61,153,112,0.5)'
+                    />
+                    {this.crimeData.map((data, i) => {
+                        if (Math.abs(this.state.mapLocation.latitude - data.latitude) > 0.5 || Math.abs(this.state.mapLocation.longitude - data.longitude) > 0.5) return;
+                        if (data.injured == 0 && data.killed == 0) return;
+                        let color = colorScale(data.weight);
+                        return (
+                            <View key={i}>
+                                <Marker
+                                    coordinate={{
+                                        latitude: parseFloat(data.latitude),
+                                        longitude: parseFloat(data.longitude),
+                                    }}
+                                    pinColor='#FF851B'
+                                    title={`Lat: ${data.latitude}, Long: ${data.longitude}`}
+                                    description={`Injured: ${data.injured}\nKilled: ${data.killed}`}
+                                />
+                                <Circle
+                                    center={{
+                                        latitude: parseFloat(data.latitude),
+                                        longitude: parseFloat(data.longitude)
+                                    }}
+                                    radius={500}
+                                    strokeWidth={0}
+                                    fillColor={`rgba(${color[0]}, ${color[1]}, ${color[2]}, 0.5)`}
+                                />
+                            </View>
+                        );
+                    })}
                 </MapView>
             </View>
         );

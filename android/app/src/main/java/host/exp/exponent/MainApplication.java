@@ -31,6 +31,7 @@ import expo.modules.sensors.SensorsPackage;
 import expo.modules.sms.SMSPackage;
 import expo.modules.taskManager.TaskManagerPackage;
 import expolib_v1.okhttp3.OkHttpClient;
+import com.wix.reactnativenotifications.RNNotificationsPackage;
 
 // Needed for `react-native link`
 // import com.facebook.react.ReactApplication;
@@ -55,7 +56,8 @@ public class MainApplication extends ExpoApplication implements AppLoaderPackage
         // new MainReactPackage(),
             new VectorIconsPackage(),
             new RNFusedLocationPackage(),
-            new MapsPackage()
+            new MapsPackage(),
+            new RNNotificationsPackage(MainApplication.this)
     );
   }
 
