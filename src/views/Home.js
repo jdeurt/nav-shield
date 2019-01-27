@@ -108,7 +108,18 @@ export default class HomeView extends React.Component {
                     <Text>Long: {this.state.location.longitude}</Text>
                     <Text>Lat: {this.state.location.latitude}</Text>
                 </View>
-                <TouchableOpacity activeOpacity={0.7} style={[styles.button, {bottom: -150, right: -125}]}>
+                <TouchableOpacity activeOpacity={0.7} style={[styles.button, {bottom: -150, right: -125}]}
+                    onPress={() => {
+                        this.setState({
+                            mapLocation: {
+                                latitude: this.state.location.latitude,
+                                longitude: this.state.location.longitude,
+                                latitudeDelta: this.state.mapLocation.latitudeDelta,
+                                longitudeDelta: this.state.mapLocation.longitudeDelta
+                            }
+                        })
+                    }}
+                >
                     <Text>CENTER</Text>
                 </TouchableOpacity>
                 <MapView
