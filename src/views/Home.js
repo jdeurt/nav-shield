@@ -142,6 +142,7 @@ export default class HomeView extends React.Component {
                             longitude: this.state.location.longitude,
                         }}
                     />
+                    
                 </MapView>
             </View>
         );
