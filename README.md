@@ -10,6 +10,15 @@ This is accomplished by using a Google Maps overlaid with a heatmap of gun viole
 * Input desired end point through the search bar at the top of the app.
 * Center button to center the map on the user.
 
+## Installation
+Input the following commands:
+'''
+git clone https://github.com/jdeurt/nav-shield.git
+cd nav-shield
+npm i && npm start
+'''
+After you've inputted those commands, scan the QR code on your phone and follow the instructions for set up.
+
 ## Built With
 
 * [React Native](https://github.com/facebook/react-native) - The JS Framework used to make Native Mobile apps.
