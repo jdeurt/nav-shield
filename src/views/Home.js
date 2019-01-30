@@ -27,7 +27,7 @@ export default class HomeView extends React.Component {
             isFetching: true,
             appState: AppState.currentState,
             inDanger: false,
-            destination: 'Longhorn Tavern Stakehouse'
+            destination: ''
         };
 
         this.watchID = undefined;
@@ -150,8 +150,9 @@ export default class HomeView extends React.Component {
             <View style={styles.container}>
                 <View style={styles.inputContainer}>
                     <TextInput
+			placeholder="Input Destination..."
                         style={styles.input}
-                        onChangeText={(destination) => this.setState({destination})}
+			onChangeText={(destination) => this.setState({destination})}
                         value={this.state.destination}
                     />
                 </View>
