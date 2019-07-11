@@ -31,7 +31,7 @@ After you've inputted those commands, scan the QR code on your phone and follow 
 ## Authors
 
 * **Juan De Urtubey** - *Initial work, main app function, React Native wizard* - [jdeurt](https://github.com/jdeurt)
-* **Will Zhao** - *Code optimization, heat map function, main logic development, idea creator* - [VisionZ](https://github.com/VisionZ)
+* **William Zhao** - *Code optimization, heat map function, main logic development, idea creator* - [VisionZ](https://github.com/VisionZ)
 * **Cameron Brill** - *Auth0 authentication, Login Page, Twilio notifier (all to be implemented later)* - [gaiscioch](https://github.com/gaiscioch)
 * **William Deng** - *Debugger, Chief Data Scientist, created sample data, also made the anomoly that is the "Eye of China"* - [wdeng112](https://github.com/wdeng112)
 
