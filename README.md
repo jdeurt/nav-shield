@@ -3,6 +3,8 @@
 The purpose of this app is to allow users to navigate safely through potentially dangerous areas. 
 This is accomplished by using a Google Maps overlaid with a heatmap of gun violence incidents.
 
+Devpost Link: https://devpost.com/software/nav-shield-dbm8c1
+
 ### Features
 * Point A to Point B navigation via Google Maps API.
 * Border changes color from green to red according to our custom calculated safety weighting of the area.
