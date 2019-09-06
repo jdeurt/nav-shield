@@ -1,7 +1,9 @@
 # nav-shield
 
-The purpose of this app is to allow users to navigate safely through potentially dangerous areas. 
-This is accomplished by using a Google Maps overlaid with a heatmap of gun violence incidents.
+Nav Shield is a prototype personal safety navigation app that is built with Google Maps and React Native. 
+It helps users navigate safely to any destination by warning them if they are entering an area with historically 
+higher levels of gun violence incidents. In the future, this application could also be linked with live data feeds 
+to inform drivers to avoid areas where there are other life-threatening incidents, such as gas leaks or fires. 
 
 Devpost Link: https://devpost.com/software/nav-shield-dbm8c1
 
