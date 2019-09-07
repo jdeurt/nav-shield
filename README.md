@@ -1,9 +1,8 @@
 # nav-shield
 
-Nav Shield is a prototype personal safety navigation app that is built with Google Maps and React Native. 
-It helps users navigate safely to any destination by warning them if they are entering an area with historically 
-higher levels of gun violence incidents. In the future, this application could also be linked with live data feeds 
-to inform drivers to avoid areas where there are other life-threatening incidents, such as gas leaks or fires. 
+Nav Shield is a prototype personal safety navigation app that is built with Google Maps and React Native. It helps users navigate safely to any destination by warning them if they are entering an area with historically higher levels of gun violence incidents.
+
+In the future, this application could also be linked with live data to inform drivers to avoid areas where there are other types of life-threatening incidents, such as fires or car accidents.
 
 Devpost Link: https://devpost.com/software/nav-shield-dbm8c1
 
